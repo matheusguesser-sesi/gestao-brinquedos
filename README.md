@@ -21,8 +21,8 @@ Sistema web feito em PHP e MySQL para gerenciar os brinquedos de uma loja. Foi d
 ## Requisitos atendidos
 
 - **Prepared Statements:** todas as operações com o banco (listar, buscar, cadastrar, editar e excluir) usam `mysqli_prepare`, sem colocar os valores digitados direto no SQL.
-- **Validação dos dados:** nenhum campo pode ficar vazio, os textos tem tamanho máximo, o preço precisa ser um número maior ou igual a zero e o estoque precisa ser um número inteiro maior ou igual a zero. O id que vem pela URL também é conferido.
-- **Tratamento de erros:** se a conexão, a consulta ou a execução falhar, aparece uma mensagem na tela. O sistema avisa se o brinquedo não existir..
+- **Validação dos dados:** nenhum campo pode ficar vazio, os textos têm tamanho máximo, o preço precisa ser um número maior ou igual a zero e o estoque precisa ser um número inteiro maior ou igual a zero. O id que vem pela URL também é conferido.
+- **Tratamento de erros:** se a conexão, a consulta ou a execução falhar, aparece uma mensagem na tela. O sistema avisa se o brinquedo não existir.
 - **Organização:** os arquivos ficam separados em pastas por função.
 
 ## Tecnologias
@@ -38,7 +38,16 @@ Sistema web feito em PHP e MySQL para gerenciar os brinquedos de uma loja. Foi d
 - database/db.sql: código utilizado no phpmyadmin para criar o banco de dados.
 - infra/conexao.php: faz a conexão com o banco.
 - public/: telas de cadastrar e editar, e o arquivo que exclui.
+- style/style.css: estilo das páginas.
 - index.php: página inicial, com a lista de brinquedos.
+
+## Como executar
+
+1. Instale o XAMPP e inicie o Apache e o MySQL.
+2. Copie a pasta do projeto para C:\xampp\htdocs.
+3. Abra o phpMyAdmin (http://localhost/phpmyadmin), clique em Importar e escolha o arquivo database/db.sql. Ele cria o banco gestao_brinquedos e a tabela brinquedos.
+4. Confira o usuário e a senha do MySQL no arquivo infra/conexao.php e ajuste se for diferente do seu.
+5. Abra no navegador: http://localhost/nome-da-pasta/index.php
 
 ## Como usar
 
@@ -49,7 +58,7 @@ Sistema web feito em PHP e MySQL para gerenciar os brinquedos de uma loja. Foi d
 
 ## Banco de dados
 
-O banco se chama "gestao_brinquedos" e tem uma tabela chamadas "brinquedos" com as colunas:
+O banco se chama "gestao_brinquedos" e tem uma tabela chamada "brinquedos" com as colunas:
 
 - id: número inteiro, chave primária, auto increment;
 - nome: texto de até 100 caracteres;

@@ -51,9 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($nome == "" || $categoria == "" || $faixa_etaria == "" || $preco == "" || $quantidade_estoque == "") {
         $erro = "Preencha todos os campos.";
-    } elseif (!is_numeric($preco) || $preco < 0) {
-        $erro = "O preço deve ser um número maior ou igual a zero.";
-    } elseif (!ctype_digit($quantidade_estoque)) {
+    } elseif (mb_strlen($nome) > 100 || mb_strlen($categoria) > 100 || mb_strlen($faixa_etaria) > 50) {
+        $erro = "Nome e categoria aceitam até 100 caracteres e a faixa etária até 50.";
+    } elseif (!is_numeric($preco) || $preco < 0 || $preco > 9999.99) {
+        $erro = "O preço deve ser um número entre 0 e 9999.99.";
+    } elseif (!ctype_digit($quantidade_estoque) || $quantidade_estoque > 2147483647) {
         $erro = "A quantidade em estoque deve ser um número inteiro maior ou igual a zero.";
     } else {
         $sql = "UPDATE brinquedos SET nome = ?, categoria = ?, faixa_etaria = ?, preco = ?, quantidade_estoque = ? WHERE id = ?";

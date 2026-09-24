@@ -1,16 +1,27 @@
 <?php
 
 include "infra/conexao.php";
+if (!isset($conexao) || $conexao === false) {
+    die("Erro: Conexão com o banco de dados não estabelecida.");
+}
+
+mysqli_report(MYSQLI_REPORT_OFF);
 
 $sql = "SELECT id, nome, categoria, faixa_etaria, preco, quantidade_estoque
         FROM brinquedos
         ORDER BY id DESC";
 
-$brinquedos = mysqli_query($conexao, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 
-if (!$brinquedos) {
-    die("Erro ao listar os brinquedos: " . mysqli_error($conexao));
+if ($stmt === false) {
+    die("Erro ao preparar consulta: " . mysqli_error($conexao));
 }
+
+if (!mysqli_stmt_execute($stmt)) {
+    die("Erro ao listar os brinquedos: " . mysqli_stmt_error($stmt));
+}
+
+$brinquedos = mysqli_stmt_get_result($stmt);
 
 ?>
 
@@ -51,7 +62,9 @@ if (!$brinquedos) {
 
                 <?php if (mysqli_num_rows($brinquedos) === 0) { ?>
 
-
+                    <tr>
+                        <td colspan="7">Nenhum brinquedo cadastrado.</td>
+                    </tr>
 
                 <?php } ?>
 
